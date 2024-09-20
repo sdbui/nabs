@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import styles from "./layout.module.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,6 +29,37 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <svg width="0" height="0">
+          <filter id="filter-back">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.012"
+              numOctaves="4"
+            />
+            <feDisplacementMap in="SourceGraphic" scale="170" />
+          </filter>
+          <filter id="filter-mid">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.032"
+              numOctaves="2"
+            />
+            <feDisplacementMap in="SourceGraphic" scale="150" />
+          </filter>
+          <filter id="filter-front">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.012"
+              numOctaves="2"
+            />
+            <feDisplacementMap in="SourceGraphic" scale="100" />
+          </filter>
+        </svg>
+        <div className={styles.cloud1}>
+          <div className={`${styles.cloud} ${styles['cloud-back']}`}></div>
+          <div className={`${styles.cloud} ${styles['cloud-mid']}`}></div>
+          <div className={`${styles.cloud} ${styles['cloud-front']}`}></div>
+        </div>
         {children}
       </body>
     </html>

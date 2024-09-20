@@ -3,16 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  
+  /* --background: #ffffff; */
+  --background: linear-gradient(
+    180deg,
+    rgba(255, 194, 215, 0.6993391106442577) 4%,
+    rgba(231, 187, 255, 0.5704875700280112) 30%,
+    rgba(199, 178, 255, 0.6741290266106443) 61%,
+    rgba(201, 217, 255, 1) 95%
+  );
   --foreground: #171717;
+
+  --cloud-width: 550px;
+  --cloud-height: 275px;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   color: var(--foreground);
