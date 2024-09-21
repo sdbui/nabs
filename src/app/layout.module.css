@@ -26,6 +26,7 @@
   top: calc(var(--cloud-height) * -1);
   left: calc(var(--cloud-width) * -0.5);
   animation: 25s infinite linear leftright;
+  z-index: -1;
 }
 
 @keyframes leftright {
