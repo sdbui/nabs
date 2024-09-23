@@ -1,13 +1,17 @@
-import Image from "next/image";
 import styles from './page.module.css';
 import OpenAI from 'openai';
+import SignIn from "./components/sign-in";
+import { auth } from "../auth"
 
 /**
  * this is a server component (for now)
- * - 
+ * - maybe make it a client component so we can have some loading screen
+ * - currently, calling gpt takes a bit which means the browser is stuck with no content
  */
 
 export default async function Home() {
+
+  const session = await auth();
 
   const getBlurb = async () => {
     const openai = new OpenAI({
@@ -30,6 +34,9 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen w-screen flex items-start justify-center">
+      <div>
+        <SignIn></SignIn>
+      </div>
       <section className={`min-w-40 max-w-xl p-10 mt-32 bg-white rounded-lg shadow-sm ${styles.blurb}`}>
         {blurb}
       </section>
