@@ -34,9 +34,6 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen w-screen flex items-start justify-center">
-      <div>
-        <SignIn></SignIn>
-      </div>
       <section className={`min-w-40 max-w-xl p-10 mt-32 bg-white rounded-lg shadow-sm ${styles.blurb}`}>
         {blurb}
       </section>

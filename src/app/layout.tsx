@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import styles from "./layout.module.css";
+import { signIn } from "@/auth"
+import { Button } from "@/components/ui/button";
  
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -60,8 +62,24 @@ export default function RootLayout({
           <div className={`${styles.cloud} ${styles['cloud-mid']}`}></div>
           <div className={`${styles.cloud} ${styles['cloud-front']}`}></div>
         </div>
+        <nav className="flex justify-end">
+          <SignIn></SignIn>
+        </nav>
         {children}
       </body>
     </html>
   );
 }
+
+function SignIn() {
+  return (
+    <form
+      action={async () => {
+        "use server"
+        await signIn("google")
+      }}
+    >
+      <Button type="submit">Sign-in with Google</Button>
+    </form>
+  )
+} 
