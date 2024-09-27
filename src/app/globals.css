@@ -148,7 +148,9 @@ body {
   * {
     @apply border-border;
   }
-  /* body {
-    @apply bg-background text-foreground;
-  } */
+  body {
+    min-height: 100vh;
+    min-width: 100vw;
+    /* @apply bg-background text-foreground; */
+  }
 }

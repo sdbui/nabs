@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google";
 import { connectMongoDB } from "@/lib/mongodb";
-import User from "@/models/user";
+import User from "@/models/User";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
@@ -36,6 +36,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       return user;
     },
+    session({ session, token }: {session: any, token: any}) {
+      session.user.id = token.id;
+      return session;
+    }
   },
 
 

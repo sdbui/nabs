@@ -13,7 +13,12 @@ const userSchema = new Schema(
     image: {
       type: String,
       required: false,
-    }
+    },
+    profile: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Profile',
+      required: false,
+    },
   },
   { timestamps: true }
 );

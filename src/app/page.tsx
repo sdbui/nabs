@@ -1,6 +1,5 @@
 import styles from './page.module.css';
 import OpenAI from 'openai';
-import SignIn from "./components/sign-in";
 import { auth } from "../auth"
 
 /**

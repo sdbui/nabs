@@ -11,6 +11,11 @@ const Blurb = {
 
 const profileSchema = new Schema(
   {
+    belongsTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: false,
+    },
     blurbTypes: {
       type: [String],
       required: false,
@@ -29,6 +34,5 @@ const profileSchema = new Schema(
     },
   }
 );
-
 const Profile = models?.Profile || mongoose.model("Profile", profileSchema);
 export default Profile;
