@@ -2,9 +2,18 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import styles from "./layout.module.css";
-import { signIn } from "@/auth"
+import { signIn, signOut, auth } from "@/auth"
 import { Button } from "@/components/ui/button";
- 
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -21,11 +30,15 @@ export const metadata: Metadata = {
   description: "Hello, Friend",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  let session = await auth();
+  console.log(session)
+
   return (
     <html lang="en">
       <body
@@ -62,13 +75,43 @@ export default function RootLayout({
           <div className={`${styles.cloud} ${styles['cloud-mid']}`}></div>
           <div className={`${styles.cloud} ${styles['cloud-front']}`}></div>
         </div>
-        <nav className="flex justify-end">
-          <SignIn></SignIn>
+        <nav className="flex justify-end absolute top-2 right-4">
+          {session !== null ? (
+            <>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar className="w-16 h-16 border-2 border-black">
+                    <AvatarImage src={session?.user?.image as string}></AvatarImage>
+                    <AvatarFallback>P</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <SignOut/>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              {/* <SignOut/> */}
+            </>
+          ) : (
+            <SignIn />
+          )}
         </nav>
         {children}
       </body>
     </html>
   );
+}
+
+function SignOut() {
+  return (
+    <form action = {async () => {
+      "use server"
+      await signOut()
+    }}>
+      <Button type="submit">Sign-out</Button>
+    </form>
+  )
 }
 
 function SignIn() {
@@ -79,6 +122,7 @@ function SignIn() {
         await signIn("google")
       }}
     >
+
       <Button type="submit">Sign-in with Google</Button>
     </form>
   )

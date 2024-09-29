@@ -4,7 +4,15 @@ import { connectMongoDB } from "@/lib/mongodb";
 import User from "@/models/User";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [Google],
+  providers: [
+    Google({
+      authorization: {
+        params: {
+          prompt: 'select_account'
+        }
+      }
+    })
+  ],
   callbacks: {
     async signIn({ user, account }: {user: any, account: any}) { // fix my types todo
       if (account.provider === "google") {

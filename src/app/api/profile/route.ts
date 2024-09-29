@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     let user = await User.findOne({ email });
     let profile = await Profile.create({
       ...profileData,
-      // belongsTo:user._id
+      belongsTo:user._id
     });
     let updatedUser = await User.findOneAndUpdate(
       { email },

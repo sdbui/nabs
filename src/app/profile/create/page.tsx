@@ -18,6 +18,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
+// can only create a profile on an existing user...
+// so if not authenticated, redirect to login
+import { auth } from '@/auth';
+import { redirect } from 'next/navigation';
+
 const blurbTypes = [
   {
     id: "prayer",
@@ -50,6 +55,10 @@ const FormSchema = z.object({
 
 
 export default function CreateProfile() {
+  let session = auth();
+  if (!session) {
+    redirect('/api/auth/signin')
+  }
   const url = 'http://localhost:3000/api/profile';
 
   // testing out shadcn forms
