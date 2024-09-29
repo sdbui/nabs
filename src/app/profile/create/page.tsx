@@ -20,8 +20,7 @@ import {
 
 // can only create a profile on an existing user...
 // so if not authenticated, redirect to login
-import { auth } from '@/auth';
-import { redirect } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 const blurbTypes = [
   {
@@ -55,10 +54,6 @@ const FormSchema = z.object({
 
 
 export default function CreateProfile() {
-  let session = auth();
-  if (!session) {
-    redirect('/api/auth/signin')
-  }
   const url = 'http://localhost:3000/api/profile';
 
   // testing out shadcn forms
@@ -77,24 +72,7 @@ export default function CreateProfile() {
     await fetch(url, {
       method: "POST",
       body: JSON.stringify(data)
-    }).then((res) => {
-      console.log("did that work????")
     })
-    // the below worked but were trying to tie them all into one form
-
-    // send post to profile
-    // let formData = {
-    //   blurbTypes,
-    //   tags,
-    //   bio
-    // }
-
-    // await fetch(url, {
-    //   method: "POST",
-    //   body: JSON.stringify(formData)
-    // }).then((res) => {
-    //   console.log('hope that worked')
-    // })
   }
 
   return (
