@@ -4,7 +4,6 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -17,6 +16,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { useRouter } from "next/navigation";
 
 // can only create a profile on an existing user...
 // so if not authenticated, redirect to login
@@ -54,6 +62,7 @@ const FormSchema = z.object({
 
 
 export default function CreateProfile() {
+  const router = useRouter();
   const url = 'http://localhost:3000/api/profile';
 
   // testing out shadcn forms
@@ -69,116 +78,128 @@ export default function CreateProfile() {
 
   
   async function onSubmit (data: z.infer<typeof FormSchema>) {
-    await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(data)
-    })
+    try {
+      await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data)
+      });
+      router.push('/profile')
+    } catch (e) {
+      // something went wrong... display an error i suppose
+
+    }
   }
 
   return (
     <>
-      <Form {...form}>
-        <form className="space-y-8">
-        {/* <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8"> */}
-          <FormField 
-            control={form.control}
-            name="blurbTypes"
-            render={()=> (
-              <FormItem>
-                <div className="mb-4">
-                  <FormLabel>Blurb Types</FormLabel>
-                  <FormDescription>Select what you want generated</FormDescription>
-                </div>
-                {blurbTypes.map(blurb => (
-                  <FormField
-                    key={blurb.id}
-                    control={form.control}
-                    name="blurbTypes"
-                    render={({field}) => {
-                      return (
-                        <FormItem
+      <div className="flex items-center justify-center min-h-screen w-screen">
+        <Card className="w-fit min-w-[500px] max-w-xl">
+          <CardHeader>
+            <CardTitle className="text-3xl">Create Profile</CardTitle>
+            <CardDescription>Fill out the form below to get started</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form className="space-y-8">
+                <FormField 
+                  control={form.control}
+                  name="blurbTypes"
+                  render={()=> (
+                    <FormItem>
+                      <div className="mb-1">
+                        <FormLabel>Content Types</FormLabel>
+                        <FormDescription>Select what you want generated</FormDescription>
+                      </div>
+                      {blurbTypes.map(blurb => (
+                        <FormField
                           key={blurb.id}
-                          className="flex flex-row items-start space-x-3 space-y-0"
-                        >
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value?.includes(blurb.id)}
-                              onCheckedChange={(checked) => {
-                                return checked 
-                                  ? field.onChange([...field.value, blurb.id])
-                                  : field.onChange(field.value?.filter((value) => value !== blurb.id))
-                              }}
-                            ></Checkbox>
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                              {blurb.label}
-                          </FormLabel>
-                        </FormItem>
-                      )
-                    }}
-                    ></FormField>
-                  ))}
-                <FormMessage />
-              </FormItem>
-            )}
-          >
-          </FormField>
-          <FormField
-            control={form.control}
-            name="tags"
-            render={({field}) => (
-              <FormItem>
-                <FormLabel>Tags</FormLabel>
-                <FormDescription>What are you interested in?</FormDescription>
-                <FormControl>
-                  <Input onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>)=> {
-                    if (e.key === 'Enter') {
-                      e.preventDefault(); // so we don't submit form
-                      const target = e.target as HTMLInputElement;
-                      let val = target.value;
-                      field.onChange([...field.value, val]);
-                      target.value = '';
-                    }
-                  }}></Input>
-                </FormControl>
-                <div>
-                  {field.value.map((item, idx) => (
-                    <Badge key={idx} onClick={() => { 
-                      field.onChange(field.value.filter(x => item !== x))
-                    }}>{item}</Badge>
-                  ))}
-                </div>
-              </FormItem>
-            )}
-          >
+                          control={form.control}
+                          name="blurbTypes"
+                          render={({field}) => {
+                            return (
+                              <FormItem
+                                key={blurb.id}
+                                className="flex flex-row items-start space-x-3 space-y-0"
+                              >
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value?.includes(blurb.id)}
+                                    onCheckedChange={(checked) => {
+                                      return checked 
+                                        ? field.onChange([...field.value, blurb.id])
+                                        : field.onChange(field.value?.filter((value) => value !== blurb.id))
+                                    }}
+                                  ></Checkbox>
+                                </FormControl>
+                                <FormLabel className="font-normal">
+                                    {blurb.label}
+                                </FormLabel>
+                              </FormItem>
+                            )
+                          }}
+                          ></FormField>
+                        ))}
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                >
+                </FormField>
+                <FormField
+                  control={form.control}
+                  name="tags"
+                  render={({field}) => (
+                    <FormItem>
+                      <FormLabel>Tags</FormLabel>
+                      <FormDescription>What are you interested in?</FormDescription>
+                      <FormControl>
+                        <Input onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>)=> {
+                          if (e.key === 'Enter') {
+                            e.preventDefault(); // so we don't submit form
+                            const target = e.target as HTMLInputElement;
+                            let val = target.value;
+                            field.onChange([...field.value, val]);
+                            target.value = '';
+                          }
+                        }}></Input>
+                      </FormControl>
+                      <div className="flex gap-1 flex-wrap">
+                        {field.value.map((item, idx) => (
+                          <Badge key={idx} onClick={() => { 
+                            field.onChange(field.value.filter(x => item !== x))
+                          }}>{item}</Badge>
+                        ))}
+                      </div>
+                    </FormItem>
+                  )}
+                >
 
-          </FormField>
-          <FormField
-            control={form.control}
-            name="bio"
-            render={({field}) => (
-              <FormItem>
-                <FormLabel>Bio</FormLabel>
-                <FormDescription>
-                  This will help us better tailor your blurbs
-                </FormDescription>
-                <FormControl>
-                  <Textarea
-                    placeholder="Tell us a little bit about yourself"
-                    className="resize-none"
-                    {...field}
-                  ></Textarea>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          >
-
-          </FormField>
-          <Button onClick={form.handleSubmit(onSubmit)}>Submit</Button>
-        </form>
-        
-      </Form>
+                </FormField>
+                <FormField
+                  control={form.control}
+                  name="bio"
+                  render={({field}) => (
+                    <FormItem>
+                      <FormLabel>Bio</FormLabel>
+                      <FormDescription>This will help us better tailor your content.</FormDescription>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Tell us a little bit about yourself"
+                          className="resize-none"
+                          {...field}
+                        ></Textarea>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                >
+                </FormField>
+                <Button onClick={form.handleSubmit(onSubmit)}>Submit</Button>
+              </form>
+              
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
     </>
   )
 }

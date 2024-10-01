@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -86,7 +87,9 @@ export default async function RootLayout({
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/profile">Profile</Link>
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <SignOut/>
                 </DropdownMenuContent>
@@ -102,6 +105,7 @@ export default async function RootLayout({
     </html>
   );
 }
+
 
 function SignOut() {
   return (

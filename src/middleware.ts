@@ -1,7 +1,7 @@
 import { auth } from "@/auth"
 import { NextRequest, NextResponse } from 'next/server'
  
-const protectedRoutes = ['/profile/create', 'profile/edit', '/profile']
+const protectedRoutes = ['/profile/create', '/profile/edit', '/profile']
 const publicRoutes = ['/'];
  
 export default async function middleware(req: NextRequest) {

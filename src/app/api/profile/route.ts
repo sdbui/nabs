@@ -6,6 +6,7 @@ import User from '@/models/User';
 
 // create
 export async function POST(request: NextRequest) {
+  console.log('IN POST')
   const profileData = await request.json();
   let session = await auth();
   let email = session?.user?.email;
@@ -27,7 +28,48 @@ export async function POST(request: NextRequest) {
   }
 }
 
+//update
+export async function PUT(request: NextRequest) {
+  console.log('IN PUT')
+  const profileData = await request.json();
+  console.log(profileData)
+  let session = await auth();
+  let email = session?.user?.email;
+  await connectMongoDB();
+  try {
+    let user = await User.findOne({ email });
+    await Profile.findOneAndUpdate({
+      belongsTo: user._id
+    }, {
+      ...profileData
+    });
+    return NextResponse.json({ message: 'profile updated' }, { status: 201 })
+  } catch (e){
+    console.log(e)
+    return NextResponse.json( {message: "Could not update"}, { status: 500 })
+  }
+}
+
 // read
+export async function GET(request: NextRequest) {
+  console.log('IN GET')
+  let session = await auth();
+  let email = session?.user?.email;
+  console.log('email: ', email)
+  await connectMongoDB();
+  try {
+    const user = await User.findOne({ email }).populate('profile');
+    const profile = user.profile;
+    if (profile) {
+      return NextResponse.json({ data: profile}, {status: 200})
+    } else {
+      return NextResponse.json(null, {status: 404 })
+    }
+  } catch (e) {
+    console.log(e);
+    return NextResponse.json({message: 'oops'}, {status: 500})
+  }
+}
 // export async function GET(request: NextRequest) {
 //   // get user from token??
 //   console.log('okay... getting profile')
