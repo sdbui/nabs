@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import Paper from "@/components/ui/paper/paper";
 
 export default function Loading() {
   // Or a custom loading skeleton component
@@ -14,7 +15,8 @@ export default function Loading() {
   return (
     
     <div className="h-screen w-screen flex items-start justify-center">
-      <section className={`min-w-40 max-w-xl p-10 mt-32 bg-white rounded-lg shadow-lg`}>
+      <Paper>
+      {/* <section className={`min-w-40 max-w-xl p-10 mt-32 bg-white rounded-lg shadow-lg`}> */}
           <div className="flex items-center space-x-4">
             <div className="space-y-2">
               <Skeleton className="h-4 w-[400px]" />
@@ -23,7 +25,7 @@ export default function Loading() {
               <Skeleton className="h-4 w-[160px]" />
             </div>
           </div>
-      </section>
+      </Paper>
     </div>
   )
 }

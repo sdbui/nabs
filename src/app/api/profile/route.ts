@@ -6,7 +6,6 @@ import User from '@/models/User';
 
 // create
 export async function POST(request: NextRequest) {
-  console.log('IN POST')
   const profileData = await request.json();
   let session = await auth();
   let email = session?.user?.email;
@@ -23,16 +22,13 @@ export async function POST(request: NextRequest) {
       {new: true})
     return NextResponse.json({ message: 'profile created' }, { status: 201 })
   } catch {
-    console.log('oops')
     return NextResponse.json( {message: "OOOPS"}, { status: 500 })
   }
 }
 
 //update
 export async function PUT(request: NextRequest) {
-  console.log('IN PUT')
   const profileData = await request.json();
-  console.log(profileData)
   let session = await auth();
   let email = session?.user?.email;
   await connectMongoDB();
@@ -52,10 +48,8 @@ export async function PUT(request: NextRequest) {
 
 // read
 export async function GET(request: NextRequest) {
-  console.log('IN GET')
   let session = await auth();
   let email = session?.user?.email;
-  console.log('email: ', email)
   await connectMongoDB();
   try {
     const user = await User.findOne({ email }).populate('profile');
@@ -70,28 +64,3 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({message: 'oops'}, {status: 500})
   }
 }
-// export async function GET(request: NextRequest) {
-//   // get user from token??
-//   console.log('okay... getting profile')
-//   let session = await auth();
-//   let email = session?.user?.email;
-
-//   if (email) {
-//     // fetch from mongo
-//     await connectMongoDB();
-//     let user = await User.findOne({ email });
-//     let profile = Profile.findOne({  })
-
-//   } else {
-//     return NextResponse.json({ error: 'Could not find User'}, { status: 401 });
-//   }
-
-//   return NextResponse.json({message: 'lol'});
-//   // const { email } = await request.json();
-//   // await connectMongoDB();
-// }
-
-// update
-// export async function PUT(request: NextRequest) {
-
-// }

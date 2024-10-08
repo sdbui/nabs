@@ -44,6 +44,10 @@ const blurbTypes = [
     label: "Words to motivate"
   },
   {
+    id: "inspiration",
+    label: "Words to inspire"
+  },
+  {
     id: "anecdote",
     label: "Anecdote"
   },
