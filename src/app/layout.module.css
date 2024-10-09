@@ -1,3 +1,7 @@
+.clouds {
+  --cloud-width: 550px;
+  --cloud-height: 275px;
+}
 .cloud {
   width: var(--cloud-width);
   height: var(--cloud-height);
@@ -25,7 +29,16 @@
   position: relative;
   top: calc(var(--cloud-height) * -1);
   left: calc(var(--cloud-width) * -0.5);
-  animation: 25s infinite linear leftright;
+  animation: 60s infinite linear leftright;
+  z-index: -1;
+}
+
+.cloud2 {
+  width: 100vw;
+  position: relative;
+  top: calc(var(--cloud-height) * -0.1);
+  left: calc(var(--cloud-width) * -0.5);
+  animation: 35s infinite linear leftright;
   z-index: -1;
 }
 
@@ -38,3 +51,4 @@
     transform: translateX(100%);
   }
 }
+

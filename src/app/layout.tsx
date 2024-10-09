@@ -70,10 +70,17 @@ export default async function RootLayout({
             <feDisplacementMap in="SourceGraphic" scale="100" />
           </filter>
         </svg>
-        <div className={styles.cloud1}>
-          <div className={`${styles.cloud} ${styles['cloud-back']}`}></div>
-          <div className={`${styles.cloud} ${styles['cloud-mid']}`}></div>
-          <div className={`${styles.cloud} ${styles['cloud-front']}`}></div>
+        <div className={styles.clouds}>
+          <div className={styles.cloud1}>
+            <div className={`${styles.cloud} ${styles['cloud-back']}`}></div>
+            <div className={`${styles.cloud} ${styles['cloud-mid']}`}></div>
+            <div className={`${styles.cloud} ${styles['cloud-front']}`}></div>
+          </div>
+          <div className={styles.cloud2}>
+            <div className={`${styles.cloud} ${styles['cloud-back']}`}></div>
+            <div className={`${styles.cloud} ${styles['cloud-mid']}`}></div>
+            <div className={`${styles.cloud} ${styles['cloud-front']}`}></div>
+          </div>
         </div>
         <nav className="flex absolute top-2 left-4">
           <Link href="/" className="hover:text-teal-500 hover:cursor-pointer">
