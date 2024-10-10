@@ -2,7 +2,6 @@ import { cookies } from 'next/headers';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -22,7 +21,7 @@ import Link from "next/link";
 
 export default async function ProfilePage () {
   // middleware ensures there is a session.
-  let resp = await fetch('http://localhost:3000/api/profile', {
+  const resp = await fetch('http://localhost:3000/api/profile', {
     method: 'GET',
     headers: { Cookie: cookies().toString() },
   });
@@ -31,12 +30,12 @@ export default async function ProfilePage () {
 
 
 
-  let res = await resp.json();
+  const res = await resp.json();
   // if res is null, no profile found... redirect to create
   if (!res) {
     redirect('/profile/create')
   }
-  let profile = res?.data;
+  const profile = res?.data;
 
 
   return (

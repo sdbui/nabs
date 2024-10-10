@@ -1,4 +1,3 @@
-import styles from './page.module.css';
 import OpenAI from 'openai';
 import { auth } from "../auth"
 import User from "@/models/User";
@@ -18,6 +17,7 @@ export default async function Home() {
    * Only really happens on restarting the dev server
    * line below ensures it gets registered.
    */
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   const prof = Profile;
   const user = await User.findOne({email}).populate('profile');
 

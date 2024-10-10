@@ -19,17 +19,11 @@ import {
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-
-// can only create a profile on an existing user...
-// so if not authenticated, redirect to login
-import { useSession } from 'next-auth/react';
+import { useEffect } from "react";
 
 const blurbTypes = [
   {
@@ -83,25 +77,22 @@ export default function EditProfile() {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-
-        let resp = await fetch('http://localhost:3000/api/profile', {
+        const resp = await fetch('http://localhost:3000/api/profile', {
           method: 'GET',
           // headers: { Cookie: cookies().toString() },
         });
-        let res = await resp.json();
-        let {blurbTypes, tags, bio} = res.data;
+        const res = await resp.json();
+        const {blurbTypes, tags, bio} = res.data;
         form.setValue('blurbTypes', blurbTypes);
         form.setValue('tags', tags);
         form.setValue('bio', bio);
       } catch (err) {
-        // setError(err.message);
-      } finally {
-        // setLoading(false);
+        console.log(err);
       }
     };
 
     fetchProfiles();
-  }, []);
+  }, [form]);
 
 
 
@@ -115,7 +106,7 @@ export default function EditProfile() {
       router.push('/profile')
     } catch (e) {
       // something went wrong... display an error i suppose
-      
+      console.log(e);
     }
   }
 
@@ -184,7 +175,7 @@ export default function EditProfile() {
                           if (e.key === 'Enter') {
                             e.preventDefault(); // so we don't submit form
                             const target = e.target as HTMLInputElement;
-                            let val = target.value;
+                            const val = target.value;
                             field.onChange([...field.value, val]);
                             target.value = '';
                           }

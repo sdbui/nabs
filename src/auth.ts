@@ -14,8 +14,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     })
   ],
   callbacks: {
-    async signIn({ user, account }: {user: any, account: any}) { // fix my types todo
-      if (account.provider === "google") {
+    async signIn({ user, account }) { // fix my types todo
+      if (account?.provider === "google") {
         const { name, email } = user;
         try {
           await connectMongoDB();
@@ -34,18 +34,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             });
 
             if (res.ok) {
-              return user;
+              return true;
             }
           }
         } catch (error) {
           console.log(error);
+          return false
         }
       }
 
-      return user;
+      return true;
     },
-    session({ session, token }: {session: any, token: any}) {
-      session.user.id = token.id;
+    session({ session, token }) {
+      session.user.id = token.id as string;
       return session;
     }
   },

@@ -9,7 +9,6 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
@@ -37,7 +36,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  let session = await auth();
+  const session = await auth();
 
   return (
     <html lang="en">

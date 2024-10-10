@@ -1,13 +1,13 @@
 import mongoose, { Schema, models } from "mongoose";
 
 // the type of text to be generated
-const Blurb = {
-  PRAYER: 'prayer',
-  JOKE: 'joke',
-  MOTIVATION: 'words of motivation',
-  INSPIRATION: 'words of inspiration',
-  ANECDOTE: 'funny anectdote'
-}
+// const Blurb = {
+//   PRAYER: 'prayer',
+//   JOKE: 'joke',
+//   MOTIVATION: 'words of motivation',
+//   INSPIRATION: 'words of inspiration',
+//   ANECDOTE: 'funny anectdote'
+// }
 
 const profileSchema = new Schema(
   {

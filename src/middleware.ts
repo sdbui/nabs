@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
  
 const protectedRoutes = ['/profile/create', '/profile/edit', '/profile']
-const publicRoutes = ['/'];
+// const publicRoutes = ['/'];
  
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname
@@ -17,7 +17,7 @@ export default async function middleware(req: NextRequest) {
       Cookie: cookies().toString()
     }
   });
-  let status = await checkSession.status;
+  const status = await checkSession.status;
 
   if (status !== 200 && isProtectedRoute) {
     const url = req.nextUrl.clone()

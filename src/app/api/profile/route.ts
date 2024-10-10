@@ -7,16 +7,16 @@ import User from '@/models/User';
 // create
 export async function POST(request: NextRequest) {
   const profileData = await request.json();
-  let session = await auth();
-  let email = session?.user?.email;
+  const session = await auth();
+  const email = session?.user?.email;
   await connectMongoDB();
   try {
-    let user = await User.findOne({ email });
-    let profile = await Profile.create({
+    const user = await User.findOne({ email });
+    const profile = await Profile.create({
       ...profileData,
       belongsTo:user._id
     });
-    let updatedUser = await User.findOneAndUpdate(
+    await User.findOneAndUpdate(
       { email },
       {profile: profile._id },
       {new: true})
@@ -29,11 +29,11 @@ export async function POST(request: NextRequest) {
 //update
 export async function PUT(request: NextRequest) {
   const profileData = await request.json();
-  let session = await auth();
-  let email = session?.user?.email;
+  const session = await auth();
+  const email = session?.user?.email;
   await connectMongoDB();
   try {
-    let user = await User.findOne({ email });
+    const user = await User.findOne({ email });
     await Profile.findOneAndUpdate({
       belongsTo: user._id
     }, {
@@ -47,9 +47,9 @@ export async function PUT(request: NextRequest) {
 }
 
 // read
-export async function GET(request: NextRequest) {
-  let session = await auth();
-  let email = session?.user?.email;
+export async function GET() {
+  const session = await auth();
+  const email = session?.user?.email;
   await connectMongoDB();
   try {
     const user = await User.findOne({ email }).populate('profile');

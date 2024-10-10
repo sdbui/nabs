@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { signIn, signOut, auth } from "@/auth"
+import { signIn, signOut } from "@/auth"
 import { useSession, SessionProvider } from "next-auth/react";
 
 const UserComponent = () => {
@@ -44,7 +44,7 @@ const UserComponent = () => {
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar className="w-16 h-16 border-2 border-black">
-                  <AvatarImage src={session?.user?.image as string}></AvatarImage>
+                  <AvatarImage src={session?.data?.user?.image as string}></AvatarImage>
                   <AvatarFallback>P</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
