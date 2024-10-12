@@ -10,7 +10,6 @@ import { redirect } from 'next/navigation';
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
-// import { useSearchParams } from 'next/navigation';
 
 /**
  * For starters, profile will be a Read of profile 
@@ -21,7 +20,7 @@ import Link from "next/link";
 
 export default async function ProfilePage () {
   // middleware ensures there is a session.
-  const resp = await fetch('http://localhost:3000/api/profile', {
+  const resp = await fetch('http://127.0.0.1:3000/api/profile', {
     method: 'GET',
     headers: { Cookie: cookies().toString() },
   });

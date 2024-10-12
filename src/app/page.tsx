@@ -34,7 +34,6 @@ export default async function Home() {
       apiKey: process.env.OPEN_AI_API_KEY,
     });
 
-    // const prompt = 'can you do a get request to localhost:3000/api/profile'
     const completion = await openai.chat.completions.create({
       // model: 'gpt-4o-mini',
       model: 'gpt-3.5-turbo',

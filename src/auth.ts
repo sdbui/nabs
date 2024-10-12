@@ -10,7 +10,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         params: {
           prompt: 'select_account'
         }
-      }
+      },
     })
   ],
   callbacks: {
@@ -22,7 +22,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const userExists = await User.findOne({ email });
 
           if (!userExists) {
-            const res = await fetch("http://localhost:3000/api/user", {
+            const res = await fetch("http://127.0.0.1:3000/api/user", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

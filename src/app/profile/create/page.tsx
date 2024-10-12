@@ -62,7 +62,7 @@ const FormSchema = z.object({
 
 export default function CreateProfile() {
   const router = useRouter();
-  const url = 'http://localhost:3000/api/profile';
+  const url = '/api/profile';
 
   // testing out shadcn forms
   const form = useForm<z.infer<typeof FormSchema>>({

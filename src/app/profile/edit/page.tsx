@@ -62,7 +62,7 @@ const FormSchema = z.object({
 
 export default function EditProfile() {
   const router = useRouter();
-  const url = 'http://localhost:3000/api/profile';
+  const url = '/api/profile';
 
   // testing out shadcn forms
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -77,7 +77,7 @@ export default function EditProfile() {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const resp = await fetch('http://localhost:3000/api/profile', {
+        const resp = await fetch('/api/profile', {
           method: 'GET',
           // headers: { Cookie: cookies().toString() },
         });
