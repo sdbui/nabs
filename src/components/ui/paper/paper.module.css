@@ -14,16 +14,12 @@
       var(--transparent)
     ),
     var(--paper-color);
-  min-width: 250px;
-  min-height: 130px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: fantasy, cursive, Arial, Helvetica, sans-serif;
   font-size: 1.5rem;
   box-shadow: var(--shadow-size) var(--shadow-size) 2px var(--paper-dark);
-  margin: auto;
-  margin-top: 50px;
 }
 
 .paper::after {

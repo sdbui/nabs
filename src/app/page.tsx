@@ -60,7 +60,7 @@ export default async function Home() {
 
 
   return (
-    <div className="min-h-screen w-screen flex items-start justify-center">
+    <div className="min-h-screen w-screen flex items-start justify-center overflow-hidden">
       <Paper>
         {json.content}
       </Paper>

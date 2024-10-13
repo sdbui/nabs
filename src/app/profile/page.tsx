@@ -2,7 +2,6 @@ import { cookies } from 'next/headers';
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -40,7 +39,7 @@ export default async function ProfilePage () {
   return (
     <>
       <div className="flex items-center justify-center min-h-screen w-screen">
-        <Card className="w-fit min-w-[500px] max-w-xl">
+        <Card className="md:min-w-[500px] max-w-xl">
           <CardHeader className="flex gap-5 flex-row">
             <CardTitle className="text-3xl">Profile</CardTitle>
             {/* should have an edit button here? */}
@@ -75,8 +74,6 @@ export default async function ProfilePage () {
               <p className="p-2">{profile?.bio}</p>
             </section>
           </CardContent>
-          <CardFooter>
-          </CardFooter>
         </Card>
       </div>
     </>

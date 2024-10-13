@@ -92,7 +92,7 @@ export default function CreateProfile() {
   return (
     <>
       <div className="flex items-center justify-center min-h-screen w-screen">
-        <Card className="w-fit min-w-[500px] max-w-xl">
+        <Card className="w-full md:min-w-[500px] max-w-xl">
           <CardHeader>
             <CardTitle className="text-3xl">Create Profile</CardTitle>
             <CardDescription>Fill out the form below to get started</CardDescription>
