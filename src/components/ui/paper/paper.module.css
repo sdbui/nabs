@@ -17,7 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: fantasy, cursive, Arial, Helvetica, sans-serif;
+  font-family: var(--font-architects-daughter), fantasy, cursive, Arial, Helvetica, sans-serif;
   font-size: 1.5rem;
   box-shadow: var(--shadow-size) var(--shadow-size) 2px var(--paper-dark);
 }

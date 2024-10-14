@@ -14,6 +14,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 
+const architectsDaughter = localFont({
+  src: "./fonts/ArchitectsDaughter.ttf",
+  variable: "--font-architects-daughter",
+  weight: "100 900",
+});
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -41,7 +47,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${architectsDaughter.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <svg width="0" height="0">
           <filter id="filter-back">
