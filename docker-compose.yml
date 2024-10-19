@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  nabs-app:
+    image: nabs
+    ports:
+      - "3000:3000"
+
+  nginx:
+    image: nabs-nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - nabs-app
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
