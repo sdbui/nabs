@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "awspush": "dotenv -e .env.deploy scripts/deploy.sh"
+    "awspush": "dotenv -e .env.deploy scripts/deploy.sh",
+    "awspushnginx": "dotenv -e .env.deploy scripts.deploy-nginx.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
