@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import {
   Card,
   CardContent,
@@ -18,8 +18,12 @@ import Link from "next/link";
  */
 
 export default async function ProfilePage () {
+  const headersList = headers();
+  const protocol = headersList.get('x-forwarded-proto') || 'http';
+  const host = headersList.get('host');
+  const baseUrl = `${protocol}://${host}`;
   // middleware ensures there is a session.
-  const resp = await fetch('http://127.0.0.1:3000/api/profile', {
+  const resp = await fetch(`${baseUrl}/api/profile`, {
     method: 'GET',
     headers: { Cookie: cookies().toString() },
   });
